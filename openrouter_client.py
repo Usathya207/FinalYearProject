@@ -12,7 +12,7 @@ def encode_image_to_base64(image_bytes: bytes) -> str:
     """Encode image bytes to base64 string"""
     return base64.b64encode(image_bytes).decode('utf-8')
 
-def analyze_image_for_ingredients(image_bytes: bytes, api_key: str = "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", model: str = "google/gemini-2.0-flash-001") -> List[Dict]:
+def analyze_image_for_ingredients(image_bytes: bytes, api_key: str = "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", model: str = "google/gemini-2.0-flash-001") -> List[Dict]:
     """
     Use an OpenRouter VLM to identify ingredients in an image.
     Returns a list of dictionaries with 'ingredient' and 'confidence'.
@@ -82,7 +82,7 @@ def analyze_image_for_ingredients(image_bytes: bytes, api_key: str = "sk-or-v1-8
             logger.error(f"Response: {response.text}")
         raise
 
-def generate_recipe(ingredients: List[str], preferences: Dict, api_key: str = "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", model: str = "google/gemini-2.0-flash-001") -> Dict:
+def generate_recipe(ingredients: List[str], preferences: Dict, api_key: str = "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", model: str = "google/gemini-2.0-flash-001") -> Dict:
     """
     Use an OpenRouter LLM to generate a recipe based on ingredients and preferences.
     """
