@@ -1,0 +1,12 @@
+# Minimal requirements for basic functionality
+torch>=2.6.0
+transformers>=4.40.0
+sentence-transformers>=3.0.0
+stable-baselines3>=2.3.0
+gymnasium>=0.29.0
+streamlit>=1.35.0
+Pillow>=10.0.0
+numpy>=1.24.0
+pandas>=2.0.0
+requests>=2.31.0
+plotly>=5.17.0

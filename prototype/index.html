@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Powered Multi-Sensory Recipe Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="app-header">
+            <h1>🍳 AI Recipe Generator</h1>
+            <p>Discover personalized recipes with multi-sensory preferences and step-by-step cooking guidance</p>
+        </header>
+
+        <!-- Tab Navigation -->
+        <nav class="tab-nav">
+            <button class="tab-btn active" data-tab="detection">🔍 Ingredient Detection</button>
+            <button class="tab-btn" data-tab="preferences">⚙️ Preferences</button>
+            <button class="tab-btn" data-tab="recipe">📝 Recipe</button>
+            <button class="tab-btn" data-tab="cooking">👨‍🍳 Cooking Mode</button>
+            <button class="tab-btn" data-tab="feedback">📊 Feedback</button>
+        </nav>
+
+        <!-- Tab Content -->
+        <div class="tab-content">
+            <!-- Ingredient Detection Section -->
+            <div id="detection-tab" class="tab-panel active">
+                <div class="card">
+                    <div class="card__body">
+                        <h2>Ingredient Detection</h2>
+                        <div class="upload-area" id="uploadArea">
+                            <div class="upload-placeholder">
+                                <div class="upload-icon">📸</div>
+                                <p>Upload an image to detect ingredients</p>
+                                <p class="upload-hint">Drag & drop or click to select</p>
+                                <input type="file" id="imageUpload" accept="image/*" hidden>
+                            </div>
+                        </div>
+                        
+                        <div id="detectionResults" class="detection-results hidden">
+                            <h3>Detected Ingredients</h3>
+                            <div class="ai-processing hidden" id="aiProcessing">
+                                <div class="loading-spinner"></div>
+                                <p>AI is analyzing your image...</p>
+                            </div>
+                            <div id="ingredientsList" class="ingredients-list"></div>
+                            <div class="detection-actions">
+                                <button class="btn btn--primary" id="confirmIngredients">Confirm Ingredients</button>
+                                <button class="btn btn--outline" id="redetect">Re-detect</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Preferences Section -->
+            <div id="preferences-tab" class="tab-panel hidden">
+                <div class="card">
+                    <div class="card__body">
+                        <h2>Multi-Sensory Preferences</h2>
+                        
+                        <!-- Flavor Profiles -->
+                        <div class="preference-section">
+                            <h3>🌶️ Flavor Preferences</h3>
+                            <div class="flavor-grid">
+                                <div class="flavor-item">
+                                    <label class="flavor-label">
+                                        <input type="radio" name="flavor" value="spicy">
+                                        <span class="flavor-icon">🌶️</span>
+                                        <span>Spicy</span>
+                                    </label>
+                                    <div class="intensity-slider">
+                                        <input type="range" min="1" max="10" value="5" class="slider" data-flavor="spicy">
+                                        <span class="intensity-label">Intensity: <span class="intensity-value">5</span></span>
+                                    </div>
+                                </div>
+                                <div class="flavor-item">
+                                    <label class="flavor-label">
+                                        <input type="radio" name="flavor" value="sweet">
+                                        <span class="flavor-icon">🍯</span>
+                                        <span>Sweet</span>
+                                    </label>
+                                    <div class="intensity-slider">
+                                        <input type="range" min="1" max="10" value="5" class="slider" data-flavor="sweet">
+                                        <span class="intensity-label">Intensity: <span class="intensity-value">5</span></span>
+                                    </div>
+                                </div>
+                                <div class="flavor-item">
+                                    <label class="flavor-label">
+                                        <input type="radio" name="flavor" value="tangy">
+                                        <span class="flavor-icon">🍋</span>
+                                        <span>Tangy</span>
+                                    </label>
+                                    <div class="intensity-slider">
+                                        <input type="range" min="1" max="10" value="5" class="slider" data-flavor="tangy">
+                                        <span class="intensity-label">Intensity: <span class="intensity-value">5</span></span>
+                                    </div>
+                                </div>
+                                <div class="flavor-item">
+                                    <label class="flavor-label">
+                                        <input type="radio" name="flavor" value="savory">
+                                        <span class="flavor-icon">🧄</span>
+                                        <span>Savory</span>
+                                    </label>
+                                    <div class="intensity-slider">
+                                        <input type="range" min="1" max="10" value="5" class="slider" data-flavor="savory">
+                                        <span class="intensity-label">Intensity: <span class="intensity-value">5</span></span>
+                                    </div>
+                                </div>
+                                <div class="flavor-item">
+                                    <label class="flavor-label">
+                                        <input type="radio" name="flavor" value="bitter">
+                                        <span class="flavor-icon">🌿</span>
+                                        <span>Bitter</span>
+                                    </label>
+                                    <div class="intensity-slider">
+                                        <input type="range" min="1" max="10" value="5" class="slider" data-flavor="bitter">
+                                        <span class="intensity-label">Intensity: <span class="intensity-value">5</span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Texture Preferences -->
+                        <div class="preference-section">
+                            <h3>🥨 Texture Preferences</h3>
+                            <div class="texture-grid">
+                                <label class="texture-checkbox">
+                                    <input type="checkbox" value="crispy">
+                                    <span class="checkmark"></span>
+                                    <span>Crispy</span>
+                                </label>
+                                <label class="texture-checkbox">
+                                    <input type="checkbox" value="soft">
+                                    <span class="checkmark"></span>
+                                    <span>Soft</span>
+                                </label>
+                                <label class="texture-checkbox">
+                                    <input type="checkbox" value="chewy">
+                                    <span class="checkmark"></span>
+                                    <span>Chewy</span>
+                                </label>
+                                <label class="texture-checkbox">
+                                    <input type="checkbox" value="tender">
+                                    <span class="checkmark"></span>
+                                    <span>Tender</span>
+                                </label>
+                                <label class="texture-checkbox">
+                                    <input type="checkbox" value="crunchy">
+                                    <span class="checkmark"></span>
+                                    <span>Crunchy</span>
+                                </label>
+                                <label class="texture-checkbox">
+                                    <input type="checkbox" value="creamy">
+                                    <span class="checkmark"></span>
+                                    <span>Creamy</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Additional Preferences -->
+                        <div class="preference-section">
+                            <h3>🍽️ Additional Preferences</h3>
+                            <div class="additional-prefs">
+                                <div class="form-group">
+                                    <label class="form-label">Dietary Restrictions</label>
+                                    <select class="form-control" id="dietaryRestrictions">
+                                        <option value="none">None</option>
+                                        <option value="vegetarian">Vegetarian</option>
+                                        <option value="vegan">Vegan</option>
+                                        <option value="gluten-free">Gluten-Free</option>
+                                        <option value="keto">Keto</option>
+                                        <option value="dairy-free">Dairy-Free</option>
+                                        <option value="nut-free">Nut-Free</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Cooking Time Preference</label>
+                                    <div class="time-slider">
+                                        <input type="range" min="15" max="120" value="30" class="slider" id="cookingTime">
+                                        <div class="time-labels">
+                                            <span>15 min</span>
+                                            <span class="time-value">30 min</span>
+                                            <span>2+ hours</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Serving Size</label>
+                                    <input type="number" min="1" max="8" value="4" class="form-control" id="servingSize">
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="btn btn--primary btn--full-width" id="savePreferences">Save Preferences</button>
+                        <div id="preferencesConfirmation" class="status status--success hidden">✅ Preferences saved successfully!</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recipe Generation Section -->
+            <div id="recipe-tab" class="tab-panel hidden">
+                <div class="card">
+                    <div class="card__body">
+                        <h2>Recipe Generation</h2>
+                        <div class="recipe-generation">
+                            <div class="generate-section">
+                                <p>Ready to create your personalized recipe based on detected ingredients and preferences?</p>
+                                <button class="btn btn--primary btn--lg" id="generateRecipe">🚀 Generate Recipe</button>
+                            </div>
+                            
+                            <div id="recipeResults" class="recipe-results hidden">
+                                <div class="ai-processing hidden" id="recipeProcessing">
+                                    <div class="loading-spinner"></div>
+                                    <p>AI is creating your perfect recipe...</p>
+                                </div>
+                                
+                                <div id="recipeDisplay" class="recipe-display hidden">
+                                    <div class="recipe-header">
+                                        <h3 id="recipeTitle"></h3>
+                                        <p id="recipeDescription"></p>
+                                        <div class="recipe-meta">
+                                            <span class="meta-item">⏱️ <span id="recipeCookTime"></span> min</span>
+                                            <span class="meta-item">🍽️ Serves <span id="recipeServings"></span></span>
+                                            <span class="meta-item">📊 <span id="recipeDifficulty"></span></span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="recipe-content">
+                                        <div class="ingredients-section">
+                                            <h4>Ingredients</h4>
+                                            <ul id="recipeIngredients"></ul>
+                                        </div>
+                                        
+                                        <div class="nutrition-section">
+                                            <h4>Nutrition (per serving)</h4>
+                                            <div id="nutritionInfo" class="nutrition-grid"></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <button class="btn btn--primary btn--lg btn--full-width" id="startCooking">👨‍🍳 Start Cooking</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cooking Mode Section -->
+            <div id="cooking-tab" class="tab-panel hidden">
+                <div class="card">
+                    <div class="card__body">
+                        <h2>Step-by-Step Cooking Mode</h2>
+                        <div id="cookingInterface" class="cooking-interface hidden">
+                            <div class="cooking-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" id="progressFill"></div>
+                                </div>
+                                <span class="progress-text" id="progressText">Step 1 of 8</span>
+                            </div>
+                            
+                            <div class="current-step">
+                                <h3 id="stepTitle">Step 1</h3>
+                                <p id="stepInstruction"></p>
+                                
+                                <div id="timerSection" class="timer-section hidden">
+                                    <div class="timer-display">
+                                        <div class="timer-circle">
+                                            <div class="timer-text" id="timerText">00:00</div>
+                                        </div>
+                                        <div class="timer-progress">
+                                            <div class="timer-fill" id="timerFill"></div>
+                                        </div>
+                                    </div>
+                                    <div class="timer-status" id="timerStatus">Timer will start automatically</div>
+                                </div>
+                            </div>
+                            
+                            <div class="cooking-controls">
+                                <button class="btn btn--outline" id="prevStep" disabled>← Previous</button>
+                                <button class="btn btn--secondary btn--sm" id="skipTimer">⏭️ Skip Timer (Debug)</button>
+                                <button class="btn btn--primary" id="nextStep" disabled>Next →</button>
+                            </div>
+                            
+                            <div id="cookingComplete" class="cooking-complete hidden">
+                                <h3>🎉 Cooking Complete!</h3>
+                                <p>Your delicious meal is ready to serve. Enjoy!</p>
+                                <button class="btn btn--primary" id="finishCooking">Finish & Rate Recipe</button>
+                            </div>
+                        </div>
+                        
+                        <div id="noCookingMode" class="no-cooking-mode">
+                            <p>Generate a recipe first to start cooking mode</p>
+                            <button class="btn btn--outline" id="goToRecipe">Go to Recipe Generation</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feedback Section -->
+            <div id="feedback-tab" class="tab-panel hidden">
+                <div class="card">
+                    <div class="card__body">
+                        <h2>Reinforcement Learning Feedback</h2>
+                        
+                        <div class="feedback-section">
+                            <h3>🔍 Ingredient Detection Feedback</h3>
+                            <div class="feedback-question">
+                                <p>Were the detected ingredients correct?</p>
+                                <div class="feedback-buttons">
+                                    <button class="btn btn--primary" id="ingredientsCorrect">✅ Yes</button>
+                                    <button class="btn btn--outline" id="ingredientsIncorrect">❌ No</button>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Detection Accuracy Rating</label>
+                                <div class="star-rating" data-rating="detection">
+                                    <span class="star" data-value="1">⭐</span>
+                                    <span class="star" data-value="2">⭐</span>
+                                    <span class="star" data-value="3">⭐</span>
+                                    <span class="star" data-value="4">⭐</span>
+                                    <span class="star" data-value="5">⭐</span>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Corrections or Additional Ingredients</label>
+                                <textarea class="form-control" id="ingredientCorrections" rows="3" placeholder="List any missing or incorrect ingredients..."></textarea>
+                            </div>
+                        </div>
+
+                        <div class="feedback-section">
+                            <h3>🍽️ Recipe Quality Feedback</h3>
+                            
+                            <div class="feedback-categories">
+                                <div class="feedback-category">
+                                    <label class="form-label">Overall Satisfaction</label>
+                                    <div class="star-rating" data-rating="overall">
+                                        <span class="star" data-value="1">⭐</span>
+                                        <span class="star" data-value="2">⭐</span>
+                                        <span class="star" data-value="3">⭐</span>
+                                        <span class="star" data-value="4">⭐</span>
+                                        <span class="star" data-value="5">⭐</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="feedback-category">
+                                    <label class="form-label">Taste Accuracy (matched preferences?)</label>
+                                    <div class="star-rating" data-rating="taste">
+                                        <span class="star" data-value="1">⭐</span>
+                                        <span class="star" data-value="2">⭐</span>
+                                        <span class="star" data-value="3">⭐</span>
+                                        <span class="star" data-value="4">⭐</span>
+                                        <span class="star" data-value="5">⭐</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="feedback-category">
+                                    <label class="form-label">Cooking Time Accuracy</label>
+                                    <div class="star-rating" data-rating="timing">
+                                        <span class="star" data-value="1">⭐</span>
+                                        <span class="star" data-value="2">⭐</span>
+                                        <span class="star" data-value="3">⭐</span>
+                                        <span class="star" data-value="4">⭐</span>
+                                        <span class="star" data-value="5">⭐</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="feedback-category">
+                                    <label class="form-label">Instruction Clarity</label>
+                                    <div class="star-rating" data-rating="clarity">
+                                        <span class="star" data-value="1">⭐</span>
+                                        <span class="star" data-value="2">⭐</span>
+                                        <span class="star" data-value="3">⭐</span>
+                                        <span class="star" data-value="4">⭐</span>
+                                        <span class="star" data-value="5">⭐</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Detailed Feedback</label>
+                                <textarea class="form-control" id="detailedFeedback" rows="4" placeholder="Share your detailed thoughts about the recipe..."></textarea>
+                            </div>
+                        </div>
+
+                        <button class="btn btn--primary btn--full-width" id="submitFeedback">Submit Feedback</button>
+                        <div id="feedbackConfirmation" class="status status--success hidden">✅ Feedback submitted successfully!</div>
+
+                        <div class="learning-indicators">
+                            <h3>🤖 AI Learning Progress</h3>
+                            <div class="learning-metric">
+                                <label>AI Learning Progress</label>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" id="learningProgress" style="width: 67%"></div>
+                                </div>
+                                <span>67%</span>
+                            </div>
+                            <div class="learning-metric">
+                                <label>Your Personalization Score</label>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" id="personalizationScore" style="width: 84%"></div>
+                                </div>
+                                <span>84%</span>
+                            </div>
+                        </div>
+
+                        <div class="feedback-history">
+                            <h3>📈 Feedback History</h3>
+                            <button class="btn btn--outline btn--sm" id="toggleHistory">Show History</button>
+                            <div id="historyContent" class="history-content hidden">
+                                <p>No feedback history yet. Start cooking to build your personalization data!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

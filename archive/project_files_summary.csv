@@ -1,0 +1,9 @@
+File,Type,Description,Key Technologies
+requirements.txt,Dependencies,"Python package requirements including Streamlit, PyTorch, Hugging Face, RL libraries","streamlit, torch, transformers, stable-baselines3"
+ai_models.py,Core AI Module,"Neural network models for ingredient detection, recipe generation, and confidence scoring","BLIP, Sentence Transformers, PyTorch, Computer Vision"
+rl_system.py,Reinforcement Learning,RL agents (PPO/DQN) for personalization and multi-armed bandit for recommendations,"Stable Baselines3, Gymnasium, Thompson Sampling, Custom Environments"
+streamlit_app.py,Main Application,Complete Streamlit web interface with all features integrated,"Streamlit, Session State, Interactive UI, Timer System"
+setup.py,Setup Script,Automated setup script to install dependencies and download AI models,"Python subprocess, Hugging Face model downloading"
+run.py,Run Script,Launch script for the Streamlit application with browser auto-opening,"Process management, Web browser integration"
+example_usage.py,Documentation/Examples,Programmatic usage examples demonstrating all AI components without UI,"All AI models, Direct API usage, Testing examples"
+README.md,Documentation,"Comprehensive documentation with architecture, features, and usage instructions","Markdown, Technical documentation"
